@@ -3,7 +3,7 @@
 class Database {
 
     private $host = "localhost";
-    private $dbname = "selfcare_store";
+    private $dbname = "peachyglow_store";
     private $user = "root";
     private $pass = "";
 

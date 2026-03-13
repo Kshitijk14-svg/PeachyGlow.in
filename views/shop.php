@@ -1,8 +1,8 @@
-<h1><?php echo $category['name']; ?></h1>
+<h1>Shop Page</h1>
 
 <?php foreach($products as $product): ?>
 
-<div>
+<div style="margin-bottom:20px">
 
 <h3>
 <a href="/PeachyGlow.in/product/<?php echo $product['slug']; ?>">
@@ -10,7 +10,7 @@
 </a>
 </h3>
 
-<p>₹<?php echo $product['price']; ?></p>
+<p>Price: ₹<?php echo $product['price']; ?></p>
 
 </div>
 
