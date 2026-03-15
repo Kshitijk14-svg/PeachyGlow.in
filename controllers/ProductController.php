@@ -15,12 +15,11 @@ class ProductController {
 
     public function show($slug) {
 
-        $productModel = new Product();
-        $product = $productModel->getProductBySlug($slug);
+    $productModel = new Product();
+    $product = $productModel->getProductBySlug($slug);
 
-        require "views/product.php";
-    }
-
+    require "views/product.php";
+}
     public function category($slug) {
 
         $categoryModel = new Category();

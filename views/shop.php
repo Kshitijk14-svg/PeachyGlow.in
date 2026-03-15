@@ -11,7 +11,7 @@
 </h3>
 
 <p>Price: ₹<?php echo $product['price']; ?></p>
-
+<img src="/PeachyGlow.in/uploads/products/<?php echo $product['image']; ?>" width="120">
 </div>
 
 <?php endforeach; ?>

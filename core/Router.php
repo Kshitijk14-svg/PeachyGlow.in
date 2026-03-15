@@ -17,12 +17,12 @@ class Router {
                 require_once $controller;
 
                 $obj = new $action[0];
-                return call_user_func_array([$obj, $action[1]], $matches);
+                call_user_func_array([$obj, $action[1]], $matches);
+
+                return;   // 🔴 THIS LINE STOPS DUPLICATION
             }
         }
 
         echo "404 Page Not Found";
-
     }
-
 }
