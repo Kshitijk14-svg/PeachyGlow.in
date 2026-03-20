@@ -25,5 +25,18 @@ $routes = [
 "/admin/product/update/{id}" => ["AdminProductController","update"],
 "/admin/product/delete/{id}" => ["AdminProductController","delete"],
 "/admin/order/{id}" => ["AdminOrderController","show"],
+"/sitemap.xml" => ["SeoController","sitemap"],
+"/admin/order/update/{id}" => ["AdminOrderController","updateStatus"],
+"/admin/revenue" => ["AdminRevenueController","index"],
+"/admin/orders" => ["AdminOrderController","index"],
+"/admin/categories" => ["AdminCategoryController","index"],
+"/admin/category/add" => ["AdminCategoryController","add"],
+"/admin/category/store" => ["AdminCategoryController","store"],
+"/category/{slug}" => ["CategoryController","show"],
+"/category/{slug}" => ["CategoryController","show"],
+"/admin/category/edit/{id}" => ["AdminCategoryController","edit"],
+"/admin/category/update/{id}" => ["AdminCategoryController","update"],
+"/admin/category/delete/{id}" => ["AdminCategoryController","delete"],
+"/admin/category/products/{id}" => ["AdminCategoryController","products"],
 
 ];

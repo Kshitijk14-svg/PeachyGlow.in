@@ -6,16 +6,20 @@ class AdminOrderController {
 
     public function index(){
 
-        $db = new Database();
-        $conn = $db->connect();
+$db = new Database();
+$conn = $db->connect();
 
-        $stmt = $conn->prepare("SELECT * FROM orders ORDER BY id DESC");
-        $stmt->execute();
+/* mark all orders as seen */
+$conn->query("UPDATE orders SET seen = 1");
 
-        $orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+/* fetch orders */
+$stmt = $conn->query("SELECT * FROM orders ORDER BY id DESC");
 
-        require "views/admin/orders.php";
-    }
+$orders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+require "views/admin/orders.php";
+
+}
 
     public function show($id){
 
@@ -40,6 +44,23 @@ $stmt->execute([$id]);
 $items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 require "views/admin/order_details.php";
+
+}
+
+public function updateStatus($id){
+
+$status = $_POST['status'];
+
+$db = new Database();
+$conn = $db->connect();
+
+$stmt = $conn->prepare(
+"UPDATE orders SET status=? WHERE id=?"
+);
+
+$stmt->execute([$status,$id]);
+
+header("Location: /PeachyGlow.in/admin/orders");
 
 }
 }

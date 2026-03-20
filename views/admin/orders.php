@@ -1,25 +1,50 @@
+<?php
+
+require "layouts/header.php";
+require "layouts/sidebar.php";
+
+?>
+
 <h1>Orders</h1>
+
+<table class="order-table">
+
+<tr>
+<th>ID</th>
+<th>Total</th>
+<th>Status</th>
+<th>Action</th>
+</tr>
 
 <?php foreach($orders as $order): ?>
 
-<div>
+<tr>
 
-Order ID: <?php echo $order['id']; ?>
+<td>#<?php echo $order['id']; ?></td>
 
-<br>
+<td>₹<?php echo $order['total']; ?></td>
 
-Total: ₹<?php echo $order['total']; ?>
+<td>
 
-<br>
+<span class="status status-<?php echo $order['status']; ?>">
+<?php echo ucfirst($order['status']); ?>
+</span>
 
-Status: <?php echo $order['status']; ?>
+</td>
 
+<td>
 
-<a href="/PeachyGlow.in/admin/order/<?php echo $order['id']; ?>">
-View Details
+<a class="view-btn"
+href="/PeachyGlow.in/admin/order/<?php echo $order['id']; ?>">
+<i class="fa fa-eye"></i> View
 </a>
-</div>
 
-<hr>
+</td>
+
+</tr>
 
 <?php endforeach; ?>
+
+</table>
+
+<?php require "layouts/footer.php"; ?>

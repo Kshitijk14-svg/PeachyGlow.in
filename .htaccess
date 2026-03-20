@@ -1,4 +1,7 @@
 RewriteEngine On
+
+RewriteRule ^sitemap\.xml$ sitemap.php [L]
+
 RewriteBase /PeachyGlow.in/
 
 RewriteCond %{REQUEST_FILENAME} !-f

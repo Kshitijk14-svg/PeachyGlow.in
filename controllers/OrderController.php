@@ -13,42 +13,70 @@ class OrderController {
 
     public function placeOrder(){
 
-        $db = new Database();
-        $conn = $db->connect();
+session_start();
 
-        $cart = $_SESSION['cart'];
+if(empty($_SESSION['cart'])){
+echo "Cart is empty";
+return;
+}
 
-        if(empty($cart)){
-            echo "Cart empty";
-            return;
-        }
+$name = $_POST['name'];
+$phone = $_POST['phone'];
+$address = $_POST['address'];
+$city = $_POST['city'];
+$pincode = $_POST['pincode'];
 
-        $total = 0;
+$db = new Database();
+$conn = $db->connect();
 
-        foreach($cart as $item){
-            $total += $item['price'] * $item['quantity'];
-        }
+/* calculate total */
 
-        $stmt = $conn->prepare("INSERT INTO orders (user_id,total,status) VALUES (?,?,?)");
-        $stmt->execute([1,$total,"pending"]);
+$total = 0;
 
-        $order_id = $conn->lastInsertId();
+foreach($_SESSION['cart'] as $item){
+$total += $item['price'] * $item['quantity'];
+}
 
-        foreach($cart as $id => $item){
+/* insert order (IMPORTANT: seen = 0) */
 
-            $stmt = $conn->prepare("INSERT INTO order_items (order_id,product_id,quantity,price) VALUES (?,?,?,?)");
+$stmt = $conn->prepare(
+"INSERT INTO orders (total,name,phone,address,city,pincode,seen)
+VALUES (?,?,?,?,?,?,0)"
+);
 
-            $stmt->execute([
-                $order_id,
-                $id,
-                $item['quantity'],
-                $item['price']
-            ]);
+$stmt->execute([
+$total,
+$name,
+$phone,
+$address,
+$city,
+$pincode
+]);
 
-        }
+$order_id = $conn->lastInsertId();
 
-        unset($_SESSION['cart']);
+/* insert order items */
 
-        echo "Order Placed Successfully";
-    }
+foreach($_SESSION['cart'] as $item){
+
+$stmt = $conn->prepare(
+"INSERT INTO order_items (order_id,product_id,quantity)
+VALUES (?,?,?)"
+);
+
+$stmt->execute([
+$order_id,
+$item['id'],
+$item['quantity']
+]);
+
+}
+
+/* clear cart */
+
+unset($_SESSION['cart']);
+
+echo "Order placed successfully";
+
+}
 }

@@ -1,23 +1,55 @@
+<?php
+
+require "layouts/header.php";
+require "layouts/sidebar.php";
+
+?>
+
 <h1>Add Product</h1>
+<?php
+require_once "models/Category.php";
+$catModel = new Category();
+$categories = $catModel->getAll();
+?>
 
-<form method="POST" action="/PeachyGlow.in/admin/product/store" enctype="multipart/form-data">
+<form method="POST"
+action="/PeachyGlow.in/admin/product/store"
+enctype="multipart/form-data">
 
-<input type="text" name="name" placeholder="Product Name" required>
+<label>Name</label>
+<input type="text" name="name" required>
 
-<br><br>
+<label>Price</label>
+<input type="number" name="price" required>
 
-<input type="number" name="price" placeholder="Price" required>
+<label>Stock</label>
+<input type="number" name="stock" required>
 
-<br><br>
+<label>Description</label>
+<textarea name="description"></textarea>
 
-<textarea name="description" placeholder="Description"></textarea>
-
-<br><br>
-
+<label>Image</label>
 <input type="file" name="image" required>
 
+<label>Category</label>
+
+<select name="category_id">
+
+<?php foreach($categories as $c): ?>
+
+<option value="<?php echo $c['id']; ?>">
+<?php echo $c['name']; ?>
+</option>
+
+<?php endforeach; ?>
+
+</select>
+
+
 <br><br>
 
-<button type="submit">Save Product</button>
+<button class="submit-btn">Save</button>
 
 </form>
+
+<?php require "layouts/footer.php"; ?>

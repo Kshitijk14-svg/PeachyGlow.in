@@ -1,17 +1,42 @@
-<h1>Shop Page</h1>
+<?php
+
+$seo_title = "Shop | PeachyGlow";
+$seo_description = "Browse our self care products";
+
+require "views/layouts/header.php";
+
+?>
+
+<h1>Shop</h1>
+
+<div class="grid">
 
 <?php foreach($products as $product): ?>
 
-<div style="margin-bottom:20px">
+<div class="product-card">
 
-<h3>
+<img src="/PeachyGlow.in/uploads/products/<?php echo $product['image']; ?>">
+
+<div class="product-title">
+
 <a href="/PeachyGlow.in/product/<?php echo $product['slug']; ?>">
 <?php echo $product['name']; ?>
 </a>
-</h3>
 
-<p>Price: ₹<?php echo $product['price']; ?></p>
-<img src="/PeachyGlow.in/uploads/products/<?php echo $product['image']; ?>" width="120">
+</div>
+
+<div class="price">
+₹<?php echo $product['price']; ?>
+</div>
+
+<a class="btn" href="/PeachyGlow.in/product/<?php echo $product['slug']; ?>">
+View
+</a>
+
 </div>
 
 <?php endforeach; ?>
+
+</div>
+
+<?php require "views/layouts/footer.php"; ?>
